@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useState } from "react";
+import ReactTableDragColumnRow from "./Table";
 
-function App() {
+import "./styles.css";
+
+export default function App() {
+  let [data, setData] = useState({
+    heads: ["id", "first name", "last name", "date", "duration"],
+    rows: [
+      [0, "yoav", "sharon", '17-06-21', 2],
+      [1, "yoav", "sharon", '17-06-21', 2],
+      [2, "yoav", "sharon", '17-06-21', 3],
+      [3, "yoav", "sharon", '17-06-21', 2]
+    ]
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="heading">
+        <h1>React table drag column row</h1>
+      </div>
+      <ReactTableDragColumnRow
+        heads={data.heads}
+        rows={data.rows}
+        onDragEnd={(type, from, to, newData) => {
+          console.log({
+            type,
+            from,
+            to,
+            newData
+          });
+          setData(newData);
+        }}
+      />
     </div>
   );
 }
-
-export default App;
